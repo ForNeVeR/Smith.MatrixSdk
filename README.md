@@ -1,4 +1,4 @@
-Smith.MatrixSdk [![Status Zero][status-zero]][andivionian-status-classifier]
+Smith.MatrixSdk [![Status Enfer][status-enfer]][andivionian-status-classifier]
 ===============
 
 SDK for [Matrix][matrix] network API.
@@ -8,6 +8,12 @@ Documentation
 
 - [Changelog][changelog]
 - [License][license] (MIT)
+
+Quick start
+-----------
+
+Please see [`Smith.MatrixSdk.Example.Simplified` project][example.simplified]
+for a working example.
 
 Build
 -----
@@ -27,7 +33,8 @@ Documentation
 - [License][license]
 
 [changelog]: ./CHANGELOG.md
+[example.simplified]: ./Smith.MatrixSdk.Example.Simplified/Program.cs
 [license]: ./LICENSE.md
-[status-zero]: https://img.shields.io/badge/status-zero-lightgrey.svg
+[status-enfer]: https://img.shields.io/badge/status-enfer-orange.svg
 
-[andivionian-status-classifier]: https://github.com/ForNeVeR/andivionian-status-classifier#status-zero-
+[andivionian-status-classifier]: https://github.com/ForNeVeR/andivionian-status-classifier#status-enfer-

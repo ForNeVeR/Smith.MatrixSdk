@@ -7,5 +7,7 @@ and this project adheres to [Semantic
 Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Password authentication: `MatrixClient.Login`
 
 [Unreleased]: https://github.com/ForNeVeR/Smith.MatrixSdk/tree/HEAD
