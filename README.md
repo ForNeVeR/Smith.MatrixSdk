@@ -62,6 +62,15 @@ API r0.6.1][matrix.spec]:
 - [ ] 7 Pagination
 - [ ] 8 Filtering
 - [ ] 9 Events
+    - [ ] 9.3 Room Events
+    - [ ] 9.4 Syncing
+        - [ ] 9.4.1 GET `/_matrix/client/r0/sync`
+            - [x] Basic features
+            - [ ] Send-to-Device messaging features
+            - [ ] End-to-end encryption features
+    - [ ] 9.5 Getting events for a room
+    - [ ] 9.6 Sending events to a room
+    - [ ] 9.7 Redactions
 - [ ] 10 Rooms
 - [ ] 11 User Data
 - [ ] 12 Security

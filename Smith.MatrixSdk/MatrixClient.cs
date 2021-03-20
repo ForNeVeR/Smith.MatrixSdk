@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading;
@@ -30,32 +31,31 @@ namespace Smith.MatrixSdk
         [PublicAPI] protected readonly HttpClient HttpClient;
         [PublicAPI] protected readonly ILogger Logger;
 
-        public MatrixClient(ILogger logger, HttpClient httpClient, string homeserver)
+        public MatrixClient(ILogger logger, HttpClient httpClient, Uri homeserverUri)
         {
             Logger = logger;
             HttpClient = httpClient;
-            HttpClient.BaseAddress = new Uri(homeserver);
+            HttpClient.BaseAddress = homeserverUri;
         }
 
         public Task<LoginResponse> Login(string user, string password, CancellationToken cancellationToken = default)
         {
             Logger.LogInformation("Sending a login request for user {Login}", user);
-            var request = new LoginRequest(password, MatrixApiConstants.LoginPasswordType, user);
+            var request = new LoginRequest(MatrixApiConstants.LoginPasswordType, password, user);
             return Post<LoginRequest, LoginResponse>(MatrixApiUris.Login, request, cancellationToken);
         }
 
         /// <summary>Start event polling asynchronously.</summary>
-        /// <param name="authToken">Authentication token to send to the server.</param>
         /// <returns>The observable event sequence. Will terminate on first error.</returns>
-        public IObservable<SyncResponse> StartEventPolling(string authToken) =>
+        public IObservable<SyncResponse> StartEventPolling(string accessToken, TimeSpan longPollingTimeout) =>
             Observable.Create<SyncResponse>(async (observer, cancellationToken) =>
             {
-                var request = new SyncRequest();
+                var request = new SyncRequest(Timeout: (int)longPollingTimeout.TotalMilliseconds);
                 while (!cancellationToken.IsCancellationRequested)
                 {
                     try
                     {
-                        var response = await SyncEvents(authToken, request, cancellationToken);
+                        var response = await SyncEvents(accessToken, request, cancellationToken);
                         Logger.LogTrace("Sync result: {Response}", response);
                         request = request with {Since = response.NextBatch};
                         observer.OnNext(response);
@@ -75,11 +75,11 @@ namespace Smith.MatrixSdk
             });
 
         private Task<SyncResponse> SyncEvents(
-            string authToken,
+            string accessToken,
             SyncRequest request,
             CancellationToken cancellationToken)
         {
-            return Get<SyncResponse>(MatrixApiUris.Sync, authToken, new Dictionary<string, string?>
+            return Get<SyncResponse>(MatrixApiUris.Sync, accessToken, new Dictionary<string, string?>
             {
                 ["filter"] = request.Filter,
                 ["since"] = request.Since,
@@ -92,7 +92,7 @@ namespace Smith.MatrixSdk
         [PublicAPI]
         protected async Task<TResponse> Get<TResponse>(
             string baseUri,
-            string authToken,
+            string accessToken,
             Dictionary<string, string> queryParameters,
             CancellationToken cancellationToken,
             bool debugLogContents) where TResponse : class
@@ -102,7 +102,7 @@ namespace Smith.MatrixSdk
             {
                 Headers =
                 {
-                    {"Authorization", $"Bearer: {authToken}"}
+                    Authorization = new AuthenticationHeaderValue("Bearer", accessToken)
                 }
             };
 

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Net.Http;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using ConsoleAppFramework;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
+using Smith.MatrixSdk.Extensions;
 
 namespace Smith.MatrixSdk.Example
 {
@@ -21,9 +23,15 @@ namespace Smith.MatrixSdk.Example
         [UsedImplicitly]
         public async Task Run(string user, string password, string homeserver = "https://matrix.org")
         {
-            var client = new MatrixClient(_logger, _httpClient, homeserver);
-            var response = await client.Login(user, password);
-            Console.WriteLine(response);
+            var client = new MatrixClient(_logger, _httpClient, new Uri(homeserver));
+            var loginResponse = await client.Login(user, password);
+            Console.WriteLine(loginResponse);
+
+            await client.StartEventPolling(loginResponse.AccessToken.NotNull(), TimeSpan.FromSeconds(5))
+                .Do(syncResponse =>
+                {
+                    Console.WriteLine($"Next batch: {syncResponse.NextBatch}");
+                });
         }
     }
 }

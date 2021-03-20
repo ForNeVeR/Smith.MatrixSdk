@@ -16,4 +16,10 @@
       <ProjectReference Include="..\Smith.MatrixSdk\Smith.MatrixSdk.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

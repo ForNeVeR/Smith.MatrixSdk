@@ -132,7 +132,12 @@ namespace Smith.MatrixSdk.ApiTypes
     /// Required. The type of event. This SHOULD be namespaced similar to Java package naming conventions e.g.
     /// <c>'com.example.subdomain.event.type'</c>
     /// </param>
-    public record Event(JObject Content, string Type);
+    /// <param name="AdditionalData">Additional event fields (not deserialized into other fields).</param>
+    public record Event(
+        JObject Content,
+        string Type,
+        [property: JsonExtensionData] IDictionary<string, JToken>? AdditionalData = null
+    );
 
     /// <param name="Heroes">
     /// <para>
@@ -210,16 +215,18 @@ namespace Smith.MatrixSdk.ApiTypes
     /// an @ are reserved for referencing user IDs, such as room members. With the exception of a few events, state
     /// events set with a given user's ID as the state key MUST only be set by that user.
     /// </param>
+    /// <param name="AdditionalData">Additional event fields (not deserialized into other fields).</param>
     public record StateEvent
     (
         JObject Content,
         string Type,
         string EventId,
         string Sender,
-        int OriginServerTs,
+        long OriginServerTs,
         UnsignedData? Unsigned,
         JObject? PrevContent,
-        string StateKey
+        string StateKey,
+        [property: JsonExtensionData] IDictionary<string, JToken>? AdditionalData = null
     );
 
     /// <param name="Content">
@@ -236,14 +243,16 @@ namespace Smith.MatrixSdk.ApiTypes
     /// Required. Timestamp in milliseconds on originating homeserver when this event was sent.
     /// </param>
     /// <param name="Unsigned">Contains optional extra information about the event.</param>
+    /// <param name="AdditionalData">Additional event fields (not deserialized into other fields).</param>
     public record RoomEvent
     (
         JObject Content,
         string Type,
         string EventId,
         string Sender,
-        int OriginServerTs,
-        UnsignedData? Unsigned
+        long OriginServerTs,
+        UnsignedData? Unsigned,
+        [property: JsonExtensionData] IDictionary<string, JToken>? AdditionalData = null
     );
 
     /// <param name="Content">Required. The <c>content</c> for the event.</param>

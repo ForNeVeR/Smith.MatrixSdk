@@ -11,7 +11,7 @@ static string AskString(string title)
 
 var logger = NullLogger.Instance;
 using var httpClient = new HttpClient();
-var client = new MatrixClient(logger, httpClient, "https://matrix.org");
+var client = new MatrixClient(logger, httpClient, new Uri("https://matrix.org"));
 
 var user = AskString("User");
 var password = AskString("Password");
