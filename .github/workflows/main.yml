@@ -38,5 +38,7 @@ jobs:
 
       - name: Build
         run: dotnet build --configuration Release
+      - name: Pack
+        run: dotnet pack --configuration Release
       - name: Test
         run: dotnet test --configuration Release

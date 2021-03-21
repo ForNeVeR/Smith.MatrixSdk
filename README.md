@@ -91,12 +91,14 @@ Documentation
 -------------
 
 - [Changelog][changelog]
+- [Maintainership][maintainership]
 - [License][license]
 
 [changelog]: ./CHANGELOG.md
 [example.simplified]: ./Smith.MatrixSdk.Example.Simplified/Program.cs
 [license]: ./LICENSE.md
 [matrix.spec]: https://matrix.org/docs/spec/client_server/r0.6.1
+[maintainership]: ./MAINTAINERSHIP.md
 [status-enfer]: https://img.shields.io/badge/status-enfer-orange.svg
 
 [andivionian-status-classifier]: https://github.com/ForNeVeR/andivionian-status-classifier#status-enfer-
