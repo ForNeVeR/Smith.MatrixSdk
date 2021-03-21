@@ -12,7 +12,7 @@ Versioning v2.0.0](https://semver.org/spec/v2.0.0.html).
 [0.0.1]: https://github.com/ForNeVeR/Smith.MatrixSdk/releases/tag/v0.0.1
 [Unreleased]: https://github.com/ForNeVeR/Smith.MatrixSdk/compare/v0.0.1...HEAD
 
-## [0.0.1] - 2021-03-21
+## [0.0.1-test2] - 2021-03-21
 ### Added
 - Password authentication: `MatrixClient.Login`
 - Reactive event sync: `MatrixClient.StartEventPolling`
