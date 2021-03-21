@@ -16,3 +16,10 @@ Prepare NuGet Package Locally
 ```console
 $ dotnet pack --configuration Release -p:ContinuousIntegrationBuild=true
 ```
+
+Push a NuGet Package Manually
+-----------------------------
+
+```console
+$ dotnet nuget push ./Smith.MatrixSdk/bin/Release/Smith.MatrixSdk.<VERSION>.nupkg --source https://api.nuget.org/v3/index.json --api-key <YOUR_API_KEY>
+```

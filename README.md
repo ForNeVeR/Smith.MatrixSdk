@@ -1,4 +1,4 @@
-Smith.MatrixSdk [![Status Enfer][status-enfer]][andivionian-status-classifier]
+Smith.MatrixSdk [![Status Enfer][status-enfer]][andivionian-status-classifier] [![NuGet Package Link][nuget.badge]][nuget.link]
 ===============
 
 SDK for [Matrix][matrix] network API.
@@ -99,6 +99,8 @@ Documentation
 [license]: ./LICENSE.md
 [matrix.spec]: https://matrix.org/docs/spec/client_server/r0.6.1
 [maintainership]: ./MAINTAINERSHIP.md
+[nuget.link]: https://www.nuget.org/packages/Smith.MatrixSdk/
 [status-enfer]: https://img.shields.io/badge/status-enfer-orange.svg
 
 [andivionian-status-classifier]: https://github.com/ForNeVeR/andivionian-status-classifier#status-enfer-
+[nuget.badge]: https://img.shields.io/nuget/v/Smith.MatrixSdk
