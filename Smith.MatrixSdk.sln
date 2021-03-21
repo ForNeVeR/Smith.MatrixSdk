@@ -12,6 +12,7 @@ ProjectSection(SolutionItems) = preProject
 	.editorconfig = .editorconfig
 	Directory.Build.props = Directory.Build.props
 	MAINTAINERSHIP.md = MAINTAINERSHIP.md
+	NuGet.Config = NuGet.Config
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{1C8EE796-C2EA-4B95-A81D-F91DAF6AE0E2}"
