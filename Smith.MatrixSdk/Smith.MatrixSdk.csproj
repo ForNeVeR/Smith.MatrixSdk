@@ -6,7 +6,7 @@
 
     <PropertyGroup Label="Package Properties">
         <PackageId>Smith.MatrixSdk</PackageId>
-        <Version>0.0.1-test2</Version>
+        <Version>0.0.1</Version>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/ForNeVeR/Smith.MatrixSdk</PackageProjectUrl>
         <RepositoryUrl>https://github.com/ForNeVeR/Smith.MatrixSdk.git</RepositoryUrl>

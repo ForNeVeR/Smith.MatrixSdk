@@ -8,7 +8,7 @@ Publish a New Version
    "Unreleased" section).
 2. Set `<Version>` in `Smith.MatrixSdk/Smith.MatrixSdk.csproj`.
 3. Push a tag in form of `v<VERSION>`, e.g. `v0.0.1`. GitHub Actions will do the
-   rest (push a NuGet).
+   rest (push a NuGet package).
 
 Prepare NuGet Package Locally
 -----------------------------
