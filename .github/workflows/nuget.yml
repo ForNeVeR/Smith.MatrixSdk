@@ -1,4 +1,4 @@
-name: Docker
+name: NuGet
 on:
   push:
     tags:
@@ -68,6 +68,6 @@ jobs:
 
       - name: Push a package to NuGet
         run: >-
-          dotnet push ./Smith.MatrixSdk/bin/Release/Smith.MatrixSdk.${{ steps.version.outputs.version }}.nupkg
+          dotnet nuget push ./Smith.MatrixSdk/bin/Release/Smith.MatrixSdk.${{ steps.version.outputs.version }}.nupkg
             --source https://api.nuget.org/v3/index.json
             --api-key ${{ secrets.NUGET_TOKEN }}

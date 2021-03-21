@@ -20,7 +20,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{F4BA85A1-8648-4C4A-8B4A-7914DDFD2169}"
 ProjectSection(SolutionItems) = preProject
 	.github\workflows\main.yml = .github\workflows\main.yml
-	.github\workflows\release.yml = .github\workflows\release.yml
+	.github\workflows\nuget.yml = .github\workflows\nuget.yml
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smith.MatrixSdk.Example", "Smith.MatrixSdk.Example\Smith.MatrixSdk.Example.csproj", "{255A2B5D-DC40-45A1-9525-2EA4C104E707}"
