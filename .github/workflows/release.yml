@@ -54,7 +54,7 @@ jobs:
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
           asset_name: Smith.MatrixSdk${{ steps.version.outputs.version }}.nupkg
-          asset_path: ./Smith.MatrixSdk/bin/Release/Smith.MatrixSdk${{ steps.version.outputs.version }}.nupkg
+          asset_path: ./Smith.MatrixSdk/bin/Release/Smith.MatrixSdk.${{ steps.version.outputs.version }}.nupkg
           asset_content_type: application/zip
       - name: Upload .snupkg file
         uses: actions/upload-release-asset@v1
@@ -63,10 +63,11 @@ jobs:
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
           asset_name: Smith.MatrixSdk${{ steps.version.outputs.version }}.snupkg
-          asset_path: ./Smith.MatrixSdk/bin/Release/Smith.MatrixSdk${{ steps.version.outputs.version }}.snupkg
+          asset_path: ./Smith.MatrixSdk/bin/Release/Smith.MatrixSdk.${{ steps.version.outputs.version }}.snupkg
           asset_content_type: application/zip
 
       - name: Push a package to NuGet
-        run: dotnet push ./Smith.MatrixSdk/bin/Release/Smith.MatrixSdk${{ steps.version.outputs.version }}.nupkg \
-          --source https://api.nuget.org/v3/index.json \
-          --api-key ${{ secrets.NUGET_TOKEN }}
+        run: >-
+          dotnet push ./Smith.MatrixSdk/bin/Release/Smith.MatrixSdk.${{ steps.version.outputs.version }}.nupkg
+            --source https://api.nuget.org/v3/index.json
+            --api-key ${{ secrets.NUGET_TOKEN }}
