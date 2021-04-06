@@ -53,7 +53,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_name: Smith.MatrixSdk${{ steps.version.outputs.version }}.nupkg
+          asset_name: Smith.MatrixSdk.${{ steps.version.outputs.version }}.nupkg
           asset_path: ./Smith.MatrixSdk/bin/Release/Smith.MatrixSdk.${{ steps.version.outputs.version }}.nupkg
           asset_content_type: application/zip
       - name: Upload .snupkg file
@@ -62,7 +62,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_name: Smith.MatrixSdk${{ steps.version.outputs.version }}.snupkg
+          asset_name: Smith.MatrixSdk.${{ steps.version.outputs.version }}.snupkg
           asset_path: ./Smith.MatrixSdk/bin/Release/Smith.MatrixSdk.${{ steps.version.outputs.version }}.snupkg
           asset_content_type: application/zip
 
