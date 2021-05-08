@@ -7,6 +7,7 @@ Documentation
 -------------
 
 - [Changelog][changelog]
+- [Maintainership][maintainership]
 - [License][license] (MIT)
 
 Quick start
@@ -86,13 +87,6 @@ $ dotnet build --configuration Release
 ```
 
 (replace `Release` with `Debug` for debug build)
-
-Documentation
--------------
-
-- [Changelog][changelog]
-- [Maintainership][maintainership]
-- [License][license]
 
 [changelog]: ./CHANGELOG.md
 [example.simplified]: ./Smith.MatrixSdk.Example.Simplified/Program.cs
