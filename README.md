@@ -88,6 +88,8 @@ $ dotnet build --configuration Release
 
 (replace `Release` with `Debug` for debug build)
 
+[matrix]: https://matrix.org/
+[dotnet]: https://docs.microsoft.com/en-us/dotnet/core/sdk
 [changelog]: ./CHANGELOG.md
 [example.simplified]: ./Smith.MatrixSdk.Example.Simplified/Program.cs
 [license]: ./LICENSE.md
