@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -278,7 +278,7 @@ namespace Smith.MatrixSdk.ApiTypes
     /// </param>
     public record UnsignedData
     (
-        int? Age,
+        long? Age,
         Event? RedactedBecause,
         string? TransactionId
     );

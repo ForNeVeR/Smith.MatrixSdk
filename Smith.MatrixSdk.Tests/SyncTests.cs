@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
@@ -465,6 +465,189 @@ namespace Smith.MatrixSdk.Tests
                         )
                     },
                     Leave: new Dictionary<string, LeftRoom>()
+                )
+            );
+
+            JsonAssert.Equal(expected.SerializeToString(), response.SerializeToString());
+        }
+
+        [Test]
+        public async Task ExtremeUnsignedDataAgeDeserializationTest()
+        {
+            const string syncResponse = @"{
+  ""next_batch"": ""tell me more!"",
+  ""rooms"": {
+    ""join"": {
+      ""!726s6s6q:example.com"": {
+        ""state"": {
+          ""events"": [
+            {
+              ""content"": {
+                ""membership"": ""join"",
+                ""avatar_url"": ""mxc://example.org/SEsfnsuifSDFSSEF"",
+                ""displayname"": ""Alice Margatroid""
+              },
+              ""type"": ""m.room.member"",
+              ""event_id"": ""$143273582443PhrSn:example.org"",
+              ""room_id"": ""!726s6s6q:example.com"",
+              ""sender"": ""@example:example.org"",
+              ""origin_server_ts"": 1432735824653,
+              ""unsigned"": {
+                ""age"": 96044923202
+              },
+              ""state_key"": ""@alice:example.org""
+            }
+          ]
+        },
+        ""timeline"": {
+          ""events"": [
+            {
+              ""content"": {
+                ""membership"": ""join"",
+                ""avatar_url"": ""mxc://example.org/SEsfnsuifSDFSSEF"",
+                ""displayname"": ""Alice Margatroid""
+              },
+              ""type"": ""m.room.member"",
+              ""event_id"": ""$143273582443PhrSn:example.org"",
+              ""room_id"": ""!726s6s6q:example.com"",
+              ""sender"": ""@example:example.org"",
+              ""origin_server_ts"": 1432735824653,
+              ""unsigned"": {
+                ""age"": 9223372036854775807
+              },
+              ""state_key"": ""@alice:example.org""
+            },
+            {
+              ""content"": {
+                ""body"": ""This is an example text message"",
+                ""msgtype"": ""m.text"",
+                ""format"": ""org.matrix.custom.html"",
+                ""formatted_body"": ""<b>This is an example text message</b>""
+              },
+              ""type"": ""m.room.message"",
+              ""event_id"": ""$143273582443PhrSn:example.org"",
+              ""room_id"": ""!726s6s6q:example.com"",
+              ""sender"": ""@example:example.org"",
+              ""origin_server_ts"": 1432735824653,
+              ""unsigned"": {
+                ""age"": -9223372036854775808
+              }
+            }
+          ],
+          ""limited"": true,
+          ""prev_batch"": ""t34-23535_0_0""
+        }
+      }
+    },
+  }
+}";
+
+            HttpHandler.Expect(MatrixApiUris.Sync)
+                .Respond("application/json", _ => syncResponse.ToStream());
+
+            using var httpClient = HttpHandler.ToHttpClient();
+            var client = new MatrixClient(Logger, httpClient, HomeserverUri);
+
+            var response = await client.StartEventPolling(AccessToken, LongPollingTimeout).FirstAsync();
+
+            var expected = new SyncResponse(
+                NextBatch: "tell me more!",
+                Presence: null,
+                AccountData: null,
+                Rooms: new Rooms(
+                    Join: new Dictionary<string, JoinedRoom>
+                    {
+                        ["!726s6s6q:example.com"] = new(
+                            Summary: null,
+                            State: new State(
+                                Events: new[]
+                                {
+                                    new StateEvent(
+                                        Content: JObject.Parse(@"{
+                                            ""membership"": ""join"",
+                                            ""avatar_url"": ""mxc://example.org/SEsfnsuifSDFSSEF"",
+                                            ""displayname"": ""Alice Margatroid""
+                                        }"),
+                                        Type: "m.room.member",
+                                        EventId: "$143273582443PhrSn:example.org",
+                                        Sender: "@example:example.org",
+                                        OriginServerTs: 1432735824653L,
+                                        Unsigned: new UnsignedData(
+                                            Age: 96044923202,
+                                            RedactedBecause: null,
+                                            TransactionId: null
+                                        ),
+                                        PrevContent: null,
+                                        StateKey: "@alice:example.org",
+                                        AdditionalData: new Dictionary<string, JToken>
+                                        {
+                                            ["room_id"] = "!726s6s6q:example.com",
+                                        }
+                                    )
+                                }
+                            ),
+                            Timeline: new Timeline(
+                                Events: new[]
+                                {
+                                    new RoomEvent(
+                                        Content: JObject.Parse(@"{
+                                            ""membership"": ""join"",
+                                            ""avatar_url"": ""mxc://example.org/SEsfnsuifSDFSSEF"",
+                                            ""displayname"": ""Alice Margatroid""
+                                        }"),
+                                        Type: "m.room.member",
+                                        EventId: "$143273582443PhrSn:example.org",
+                                        Sender: "@example:example.org",
+                                        OriginServerTs: 1432735824653L,
+                                        Unsigned: new UnsignedData(
+                                            // 2^63-1 milliseconds, ≈292 million years
+                                            Age: Int64.MaxValue,
+                                            RedactedBecause: null,
+                                            TransactionId: null
+                                        ),
+                                        AdditionalData: new Dictionary<string, JToken>
+                                        {
+                                            ["room_id"] = "!726s6s6q:example.com",
+                                            ["state_key"] = "@alice:example.org"
+                                        }
+                                    ),
+                                    new RoomEvent(
+                                        Content: JObject.Parse(@"{
+                                            ""body"": ""This is an example text message"",
+                                            ""msgtype"": ""m.text"",
+                                            ""format"": ""org.matrix.custom.html"",
+                                            ""formatted_body"": ""<b>This is an example text message</b>""
+                                        }"),
+                                        Type: "m.room.message",
+                                        EventId: "$143273582443PhrSn:example.org",
+                                        Sender: "@example:example.org",
+                                        OriginServerTs: 1432735824653,
+                                        Unsigned: new UnsignedData(
+                                            // -2^63
+                                            Age: Int64.MinValue,
+                                            RedactedBecause: null,
+                                            TransactionId: null
+                                        ),
+                                        AdditionalData: new Dictionary<string, JToken>
+                                        {
+                                            ["room_id"] = "!726s6s6q:example.com",
+                                            ["unsigned"] = new JObject
+                                            {
+                                                ["age"] = 1234
+                                            }
+                                        }
+                                    )
+                                },
+                                Limited: true,
+                                PrevBatch: "t34-23535_0_0"
+                            ),
+                            Ephemeral: null,
+                            AccountData: null,
+                            UnreadNotifications: null
+                        )
+                    },
+                    Invite: null,
+                    Leave: null
                 )
             );
 
