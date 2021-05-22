@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 using ConsoleAppFramework;
 using JetBrains.Annotations;
@@ -27,11 +26,12 @@ namespace Smith.MatrixSdk.Example
             var loginResponse = await client.Login(user, password);
             Console.WriteLine(loginResponse);
 
-            await client.StartEventPolling(loginResponse.AccessToken.NotNull(), TimeSpan.FromSeconds(5))
-                .Do(syncResponse =>
-                {
-                    Console.WriteLine($"Next batch: {syncResponse.NextBatch}");
-                });
+            var events = client.StartEventPolling(loginResponse.AccessToken.NotNull(), TimeSpan.FromSeconds(5));
+            events.Subscribe(
+                syncResponse => Console.WriteLine($"Next batch: {syncResponse.NextBatch}"),
+                Context.CancellationToken
+            );
+            await Context.CancellationToken.WhenCancelled();
         }
     }
 }
