@@ -31,6 +31,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smith.MatrixSdk.Tests", "Sm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smith.MatrixSdk.Example.Simplified", "Smith.MatrixSdk.Example.Simplified\Smith.MatrixSdk.Example.Simplified.csproj", "{0E99BE0F-670B-4385-ABE2-09F16C0B5433}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{79862452-285B-4295-80D4-DAD031CD15C2}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\verify-encoding.ps1 = scripts\verify-encoding.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

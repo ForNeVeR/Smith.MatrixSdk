@@ -26,6 +26,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Verify source file encoding
+        shell: pwsh
+        run: ./scripts/verify-encoding.ps1
+
       - name: NuGet cache
         uses: actions/cache@v2
         with:
