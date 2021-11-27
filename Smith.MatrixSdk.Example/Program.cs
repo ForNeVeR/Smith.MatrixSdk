@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using ConsoleAppFramework;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

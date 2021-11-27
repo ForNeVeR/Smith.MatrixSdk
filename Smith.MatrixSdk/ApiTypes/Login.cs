@@ -1,4 +1,4 @@
-﻿namespace Smith.MatrixSdk.ApiTypes
+namespace Smith.MatrixSdk.ApiTypes
 {
     /// <param name="Type">
     /// Required. The login type being used. One of: <c>["m.login.password", "m.login.token"]</c>.

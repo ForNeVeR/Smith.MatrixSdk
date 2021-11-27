@@ -1,4 +1,4 @@
-﻿namespace Smith.MatrixSdk
+namespace Smith.MatrixSdk
 {
     internal static class MatrixApiConstants
     {

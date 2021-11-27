@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using RichardSzalay.MockHttp;
 
 namespace Smith.MatrixSdk.Tests.TestFramework
